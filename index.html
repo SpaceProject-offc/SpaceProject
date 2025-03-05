@@ -63,44 +63,32 @@
         const sound = document.getElementById('sound');
         const content = document.getElementById('content');
 
-        // Используем Web Audio API для воспроизведения звука
-        let audioContext;
-        let source;
-
-        // Функция для воспроизведения звука
-        function playSound() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            fetch('sound.mp3')
-                .then(response => response.arrayBuffer())
-                .then(data => audioContext.decodeAudioData(data))
-                .then(buffer => {
-                    source = audioContext.createBufferSource();
-                    source.buffer = buffer;
-                    source.loop = true; // Зацикливаем звук
-                    source.connect(audioContext.destination);
-                    source.start(0);
-                })
-                .catch(error => {
-                    console.error("Ошибка загрузки или воспроизведения звука:", error);
-                    alert("Не удалось воспроизвести звук. Проверьте файл sound.mp3.");
-                });
-        }
-
         // Обработчик клика на "Тап лого"
         tapLogo.addEventListener('click', () => {
             content.classList.add('blur'); // Добавляем блюр только к контенту
             spaceLogo.style.display = 'block'; // Показываем "Спейс лого"
 
-            // Воспроизводим звук
-            playSound();
+            // Воспроизводим звук после взаимодействия пользователя
+            sound.play().then(() => {
+                console.log("Звук воспроизводится");
+            }).catch((error) => {
+                console.error("Ошибка воспроизведения звука:", error);
+                alert("Не удалось воспроизвести звук. Разрешите воспроизведение звука на странице.");
+            });
         });
 
         // Обработчик клика на "Спейс лого"
         spaceLogo.addEventListener('click', () => {
-            window.open("https://t.me/SpaceProject_offc", "_blank"); // Открываем ссылку в новой вкладке
+            // Добавляем небольшую задержку перед открытием ссылки
+            setTimeout(() => {
+                window.open("https://t.me/SpaceProject_offc", "_blank"); // Открываем ссылку в новой вкладке
+            }, 100); // Задержка 100 мс
+        });
+
+        // Зацикливаем звук
+        sound.addEventListener('ended', () => {
+            sound.currentTime = 0; // Сбрасываем время звука на начало
+            sound.play(); // Запускаем звук снова
         });
     </script>
 </body>
