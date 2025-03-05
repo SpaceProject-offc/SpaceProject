@@ -54,7 +54,7 @@
         <img id="tap-logo" src="tap-logo.png" alt="Тап лого">
     </div>
     <img id="space-logo" src="space-logo.png" alt="Спейс лого">
-    <audio id="sound" src="sound.mp3" loop></audio>
+    <audio id="sound" src="sound.mp3"></audio>
 
     <script>
         const tapLogo = document.getElementById('tap-logo');
@@ -74,6 +74,12 @@
                 console.error("Ошибка воспроизведения звука:", error);
                 alert("Не удалось воспроизвести звук. Разрешите воспроизведение звука на странице.");
             });
+        });
+
+        // Зацикливаем звук
+        sound.addEventListener('ended', () => {
+            sound.currentTime = 0; // Сбрасываем время звука на начало
+            sound.play(); // Запускаем звук снова
         });
     </script>
 </body>
