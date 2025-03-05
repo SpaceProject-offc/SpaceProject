@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт с эффектами</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #000000, #4B0082);
+            overflow: hidden;
+        }
+
+        #tap-logo {
+            max-width: 100%;
+            max-height: 100vh;
+            cursor: pointer;
+            transition: filter 0.5s ease;
+        }
+
+        #space-logo {
+            display: none;
+            position: absolute;
+            max-width: 50%;
+            max-height: 50vh;
+            z-index: 2;
+        }
+
+        .blur {
+            filter: blur(10px);
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img id="tap-logo" src="tap-logo.png" alt="Тап лого">
+    <img id="space-logo" src="space-logo.png" alt="Спейс лого">
+    <audio id="sound" src="sound.mp3" loop></audio>
+
+    <script>
+        const tapLogo = document.getElementById('tap-logo');
+        const spaceLogo = document.getElementById('space-logo');
+        const sound = document.getElementById('sound');
+        const body = document.body;
+
+        tapLogo.addEventListener('click', () => {
+            body.classList.add('blur'); // Добавляем блюр
+            spaceLogo.style.display = 'block'; // Показываем Спейс лого
+            sound.play(); // Воспроизводим звук
+        });
+    </script>
+</body>
+</html>
