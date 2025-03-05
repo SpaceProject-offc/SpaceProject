@@ -35,9 +35,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 50%;
-            max-height: 50vh;
-            z-index: 2; /* Убедимся, что "Спейс лого" выше блюра */
+            max-width: 70%; /* Увеличиваем размер кнопки */
+            max-height: 70vh; /* Увеличиваем размер кнопки */
+            z-index: 2;
+            cursor: pointer; /* Добавляем курсор-указатель */
         }
 
         .blur {
@@ -62,7 +63,7 @@
         const sound = document.getElementById('sound');
         const content = document.getElementById('content');
 
-        // Обработчик клика
+        // Обработчик клика на "Тап лого"
         tapLogo.addEventListener('click', () => {
             content.classList.add('blur'); // Добавляем блюр только к контенту
             spaceLogo.style.display = 'block'; // Показываем "Спейс лого"
@@ -74,6 +75,11 @@
                 console.error("Ошибка воспроизведения звука:", error);
                 alert("Не удалось воспроизвести звук. Разрешите воспроизведение звука на странице.");
             });
+        });
+
+        // Обработчик клика на "Спейс лого"
+        spaceLogo.addEventListener('click', () => {
+            window.location.href = "https://t.me/SpaceProject_offc"; // Переход по ссылке
         });
 
         // Зацикливаем звук
