@@ -62,6 +62,7 @@
         const sound = document.getElementById('sound');
         const content = document.getElementById('content');
 
+        // Обработчик клика
         tapLogo.addEventListener('click', () => {
             content.classList.add('blur'); // Добавляем блюр только к контенту
             spaceLogo.style.display = 'block'; // Показываем "Спейс лого"
@@ -74,6 +75,17 @@
                 alert("Не удалось воспроизвести звук. Разрешите воспроизведение звука на странице.");
             });
         });
+
+        // Разрешаем воспроизведение звука при первом взаимодействии с сайтом
+        document.addEventListener('click', () => {
+            sound.play().then(() => {
+                console.log("Звук готов к воспроизведению");
+                sound.pause(); // Останавливаем звук, чтобы он начал играть только после клика на "Тап лого"
+                sound.currentTime = 0; // Сбрасываем время звука на начало
+            }).catch((error) => {
+                console.error("Ошибка при подготовке звука:", error);
+            });
+        }, { once: true }); // Обработчик сработает только один раз
     </script>
 </body>
 </html>
