@@ -43,6 +43,10 @@
         .blur {
             filter: blur(10px);
         }
+
+        audio {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -50,15 +54,25 @@
         <img id="tap-logo" src="tap-logo.png" alt="Тап лого">
     </div>
     <img id="space-logo" src="space-logo.png" alt="Спейс лого">
+    <audio id="sound" src="sound.mp3" loop></audio>
 
     <script>
         const tapLogo = document.getElementById('tap-logo');
         const spaceLogo = document.getElementById('space-logo');
+        const sound = document.getElementById('sound');
         const content = document.getElementById('content');
 
         tapLogo.addEventListener('click', () => {
             content.classList.add('blur'); // Добавляем блюр только к контенту
             spaceLogo.style.display = 'block'; // Показываем "Спейс лого"
+
+            // Воспроизводим звук после взаимодействия пользователя
+            sound.play().then(() => {
+                console.log("Звук воспроизводится");
+            }).catch((error) => {
+                console.error("Ошибка воспроизведения звука:", error);
+                alert("Не удалось воспроизвести звук. Разрешите воспроизведение звука на странице.");
+            });
         });
     </script>
 </body>
